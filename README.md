@@ -1,6 +1,6 @@
 # Feature Toggle Middleware
 
-A simple and flexible feature toggle middleware for Express.js applications.
+A flexible feature toggle middleware for Express.js applications with support for complex rollout strategies.
 
 ## Installation
 
@@ -8,23 +8,48 @@ A simple and flexible feature toggle middleware for Express.js applications.
 npm install feature-toggle-middleware
 ```
 
-## Quick Start
+## Initialization Methods
+
+```typescript
+// 1. Local JSON file
+await initializeFeatureToggleMiddleware('./config.json');
+
+// 2. Remote configuration
+await initializeFeatureToggleMiddleware('https://api.example.com/config', {
+    headers: {
+        'X-API-Key': 'your-api-key'
+    }
+});
+
+// 3. Direct configuration object
+await initializeFeatureToggleMiddleware({
+    modules: {
+        moduleA: {
+            enabled: true,
+            features: {
+                feature1: true,
+                feature2: false
+            }
+        },
+        moduleB: {
+            enabled: true,
+            features: {
+                feature3: true
+            }
+        }
+    }
+});
+```
+
+### Usage Examples
 
 ```typescript
 import express from 'express';
-import { initializeFeatureToggleMiddleware, featureToggleMiddleware } from '../index';
+import { featureToggleMiddleware } from 'feature-toggle-middleware';
 
 const app = express();
 
-// Initialize feature toggles with JSON file
-await initializeFeatureToggleMiddleware('./config.json');
-
-// Or initialize with remote config
-await initializeFeatureToggleMiddleware('https://api.example.com/feature-config', {
-    "X-API-Key": "your-api-key"
-});
-
-// Use middleware to protect routes
+// Basic route protection
 app.get('/api/feature1', 
     featureToggleMiddleware('moduleA', 'feature1'),
     (req, res) => {
@@ -32,24 +57,31 @@ app.get('/api/feature1',
     }
 );
 
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
-});
-
-```
-
-## Configuration Format
-
-```json
-{
-  "modules": {
-    "moduleA": {
-      "enabled": true,
-      "features": {
-        "feature1": true,
-        "feature2": false
-      }
+// Error handling
+app.use((err, req, res, next) => {
+    if (err.name === 'FeatureToggleError') {
+        return res.status(404).json({ error: 'Feature not available' });
     }
-  }
-}
+    next(err);
+});
 ```
+
+## Options
+
+- `cacheDuration`: Cache duration in milliseconds for remote configs
+- `headers`: Custom headers for remote config fetching
+- `errorHandler`: Custom error handling function
+
+## Error Handling
+
+The middleware throws `FeatureToggleError` for various scenarios:
+- Feature not found
+- Module not found
+- Invalid configuration
+- Remote config fetch failures
+
+## Best Practices
+
+1. Use meaningful module and feature names
+2. Include descriptions for better documentation
+3. Implement proper error handling

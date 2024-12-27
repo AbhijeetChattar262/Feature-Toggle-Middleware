@@ -4,14 +4,14 @@ import { initializeFeatureToggleMiddleware, featureToggleMiddleware } from '../s
 const app = express();
 
 // Example 1: Initialize with local JSON file
-// await initializeFeatureToggleMiddleware('./example.json');
+await initializeFeatureToggleMiddleware('./example.json');
 
 // Example 2: Initialize with remote config
-// await initializeFeatureToggleMiddleware('https://api.example.com/feature-config', {
-//     headers: {
-//         'X-API-Key': 'test-key'
-//     }
-// });
+await initializeFeatureToggleMiddleware('https://api.example.com/feature-config', {
+    headers: {
+        'X-API-Key': 'test-key'
+    }
+});
 
 // Example 3: Initialize with direct config object
 await initializeFeatureToggleMiddleware({

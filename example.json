@@ -1,0 +1,17 @@
+{
+    "modules": {
+      "moduleA": {
+        "enabled": true,
+        "features": {
+          "feature1": true,
+          "feature2": false
+        }
+      },
+      "moduleB": {
+        "enabled": false,
+        "features": {
+          "feature1": true
+        }
+      }
+    }
+  }

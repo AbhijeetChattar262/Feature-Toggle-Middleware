@@ -1,0 +1,30 @@
+{
+  "name": "backend-feature-toggle",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "keywords": [],
+  "author": "Abhijeet Chattar",
+  "license": "ISC",
+  "description": "A feature toggle service for Node.js and TypeScript.",
+  "dependencies": {
+    "express": "^4.21.2",
+    "node-fetch": "^3.3.2",
+    "tsx": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.11",
+    "@types/node-fetch": "^2.6.12",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.7.2"
+  }
+}

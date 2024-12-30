@@ -1,10 +1,10 @@
-import { Request, Response, NextFunction } from 'express';
-import { FeatureToggleService } from '../services/feature-toggle.service';
-import { isFeatureEnabled } from '../utils/feature-checker';
-import { FeatureToggleError, FeatureToggleOptions, FeatureToggleInitOptions } from '../types';
-import { loadConfig, loadConfigFromFile, loadConfigFromUrl, isUrl } from '../utils/config-loader';
+import { Request, Response as ExpressResponse, NextFunction } from 'express';
+import { FeatureToggleService } from '../services/feature-toggle.service.js';
+import { isFeatureEnabledCheck } from '../utils/feature-checker.js';
+import { FeatureToggleError, FeatureToggleOptions, FeatureToggleInitOptions } from '../types/index.js';
+import { loadConfig, loadConfigFromFile, loadConfigFromUrl, isUrl } from '../utils/config-loader.js';
 
-export async function initializeFeatureToggleMiddleware(
+export async function getToggleConfig(
     configSource: string | FeatureToggleInitOptions,
     options?: FeatureToggleOptions
 ): Promise<void> {
@@ -23,11 +23,11 @@ export async function initializeFeatureToggleMiddleware(
     }
 }
 
-export function featureToggleMiddleware(moduleName: string, featureName: string) {
-    return (req: Request, res: Response, next: NextFunction): void => {
+export function isFeatureEnabled(moduleName: string, featureName: string) {
+    return (req: Request, res: ExpressResponse, next: NextFunction): void => {
         try {
             const config = FeatureToggleService.getInstance().getConfig();
-            if (isFeatureEnabled(config, moduleName, featureName)) {
+            if (isFeatureEnabledCheck(config, moduleName, featureName)) {
                 next();
                 return;
             }

@@ -1,13 +1,12 @@
 {
-  "name": "feature-toggle-middleware",
-  "version": "1.0.0",
+  "name": "feature-toggle-middleware-test",
+  "version": "0.1.13",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "test": "jest",
     "build": "tsc",
-    "start": "node dist/index.js",
-    "prepublishOnly": "npm run build"
+    "start": "node dist/index.js"
   },
   "keywords": [
     "feature-toggle",
@@ -32,12 +31,13 @@
     "@types/node-fetch": "^2.6.12",
     "typescript": "^5.7.2"
   },
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "files": [
-    "dist", 
+    "dist",
     "docs",
-    "examples",
     "package.json",
-    "README.md",
-    "tsconfig.json"
+    "README.md"
   ]
 }

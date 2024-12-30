@@ -1,6 +1,6 @@
 # API Reference
 
-## `initializeFeatureToggleMiddleware`
+## `getToggleConfig`
 
 Initializes the feature toggle middleware.
 
@@ -12,12 +12,12 @@ Initializes the feature toggle middleware.
 ### Example
 
 ```typescript
-import { initializeFeatureToggleMiddleware } from 'feature-toggle-package';
+import { getToggleConfig } from 'feature-toggle-package';
 
-await initializeFeatureToggleMiddleware('./example.json');
+await getToggleConfig('./example.json');
 ```
 
-## `featureToggleMiddleware`
+## `isFeatureEnabled`
 
 Middleware to protect routes based on feature toggles.
 
@@ -29,10 +29,10 @@ Middleware to protect routes based on feature toggles.
 ### Example
 
 ```typescript
-import { featureToggleMiddleware } from 'feature-toggle-package';
+import { isFeatureEnabled } from 'feature-toggle-package';
 
 app.get('/api/feature1', 
-    featureToggleMiddleware('moduleA', 'feature1'),
+    isFeatureEnabled('moduleA', 'feature1'),
     (req, res) => {
         res.json({ message: 'Feature 1 is enabled!' });
     }

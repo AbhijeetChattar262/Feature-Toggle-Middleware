@@ -5,24 +5,24 @@ A flexible feature toggle middleware for Express.js applications with support fo
 ## Installation
 
 ```bash
-npm install feature-toggle-middleware
+npm install feature-toggle-middleware-test
 ```
 
 ## Initialization Methods
 
 ```typescript
 // 1. Local JSON file
-await initializeFeatureToggleMiddleware('./config.json');
+await getToggleConfig('./config.json');
 
 // 2. Remote configuration
-await initializeFeatureToggleMiddleware('https://api.example.com/config', {
+await getToggleConfig('https://api.example.com/config', {
     headers: {
         'X-API-Key': 'your-api-key'
     }
 });
 
 // 3. Direct configuration object
-await initializeFeatureToggleMiddleware({
+await getToggleConfig({
     modules: {
         moduleA: {
             enabled: true,
@@ -45,13 +45,13 @@ await initializeFeatureToggleMiddleware({
 
 ```typescript
 import express from 'express';
-import { featureToggleMiddleware } from 'feature-toggle-middleware';
+import { isFeatureEnabled } from 'feature-toggle-middleware';
 
 const app = express();
 
 // Basic route protection
 app.get('/api/feature1', 
-    featureToggleMiddleware('moduleA', 'feature1'),
+    isFeatureEnabled('moduleA', 'feature1'),
     (req, res) => {
         res.json({ message: 'Feature 1 is enabled!' });
     }

@@ -1,5 +1,5 @@
-import { AppConfig, FeatureToggleError, FeatureToggleOptions } from '../types';
-import { loadConfigFromFile, loadConfigFromUrl, isUrl } from '../utils/config-loader';
+import { AppConfig, FeatureToggleError, FeatureToggleOptions } from '../types/index.js';
+import { loadConfigFromFile, loadConfigFromUrl, isUrl } from '../utils/config-loader.js';
 
 export class FeatureToggleService {
     private static instance: FeatureToggleService;

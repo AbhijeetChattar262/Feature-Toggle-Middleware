@@ -33,14 +33,14 @@ export class FeatureToggleError extends Error {
 }
 
 export interface FeatureToggleOptions {
-    headers?: Record<string, string>;  // Changed from HeadersInit to allow any string keys
+    headers?: Record<string, string>; 
     cacheDuration?: number;
     errorHandler?: (error: FeatureToggleError) => void;
 }
 
 export interface RemoteConfigOptions {
     url: string;
-    headers?: HeadersInit;
+    headers?: Record<string, string>;
 }
 
 export interface LocalConfigOptions {

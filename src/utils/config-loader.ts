@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import fetch, { HeadersInit } from 'node-fetch';
-import { AppConfig, ConfigResponse, ModuleConfig, RemoteConfigOptions, LocalConfigOptions } from '../types';
+import { AppConfig, ConfigResponse, ModuleConfig, RemoteConfigOptions, LocalConfigOptions } from '../types/index.js';
 
 export function isUrl(source: string): boolean {
   try {
